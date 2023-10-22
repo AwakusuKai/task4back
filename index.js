@@ -8,7 +8,7 @@ import checkAuth from './utils/checkAuth.js';
 import * as UserController from './controllers/UserController.js';
 import cors from 'cors';
 
-mongoose.connect('mongodb+srv://awakusu:pass12345@cluster0.wksswab.mongodb.net/task4db?retryWrites=true&w=majority')
+mongoose.connect(process.env.MONGODB_URI);
 .then(() => console.log('db ok'))
 .catch((err) => console.log('db error', err));
 
@@ -35,7 +35,7 @@ app.post('/users/block',  checkAuth, deleteValidation, await UserController.bloc
 
 app.post('/users/unblock',  checkAuth, deleteValidation, await UserController.unblockUsers)
 
-app.listen(4444, (err) => {
+app.listen(process.env.PORT || 4444, (err) => {
     if (err) {
         return console.log(err);
     }
